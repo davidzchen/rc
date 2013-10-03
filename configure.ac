@@ -1,27 +1,35 @@
-dnl Get things going...
-AC_INIT(rc.h)
+
+#------------------------------------------------------------------------------
+# Get things going...
+#------------------------------------------------------------------------------
+AC_PREREQ([2.59])
+AC_INIT([rc], [1.7.1], [foo@foo.org])
 
 RELDATE=`cat $srcdir/RELDATE`
 AC_DEFINE_UNQUOTED(RELDATE, "$RELDATE", [Release date])
+AC_CONFIG_SRCDIR([src])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_AUX_DIR([build-aux])
 
-dnl Automake stuff.
-dnl Use this one for snapshots...
-dnl AM_INIT_AUTOMAKE(rc, 1.7s`echo $RELDATE |sed 's/-//g'`)
-dnl ...and this one for releases
-AM_INIT_AUTOMAKE(rc, 1.7.1)
+#------------------------------------------------------------------------------
+# Automake stuff.
+#------------------------------------------------------------------------------
+AM_INIT_AUTOMAKE([-Wall -Werror -Wno-portability subdir-objects])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-AM_CONFIG_HEADER(config.h)
 
-dnl Find a standard C compiler
+# Find a standard C compiler
 AC_PROG_CC
 AM_PROG_CC_STDC
+AM_PROG_CC_C_O
 
-dnl If we're using gcc, specify `-Wall'.  I've also checked the code
-dnl with `-pedantic -W -Wall -Wpointer-arith -Wstrict-prototypes
-dnl -Wmissing-prototypes', and checked that all the warnings generated
-dnl are harmless.
+# If we're using gcc, specify `-Wall'.  I've also checked the code
+# with `-pedantic -W -Wall -Wpointer-arith -Wstrict-prototypes
+# -Wmissing-prototypes', and checked that all the warnings generated
+# are harmless.
 case "$GCC" in
-yes) CFLAGS="-Wall $CFLAGS" ;;
+  yes) CFLAGS="-Wall $CFLAGS" ;;
 esac
 
 AC_SYS_LARGEFILE
@@ -42,11 +50,11 @@ AC_CHECK_TYPE(ssize_t, long)
 
 AC_CHECK_FUNCS(getgroups lstat setpgrp setrlimit sigaction)
 
-dnl We prefer system calls that don't restart.  If we have sigaction()
-dnl we'll use it.  Otherwise, we check whether good ol' signal()
-dnl produces interruptible system calls.
+# We prefer system calls that don't restart.  If we have sigaction()
+# we'll use it.  Otherwise, we check whether good ol' signal()
+# produces interruptible system calls.
 case "$ac_cv_func_sigaction" in
-no) AC_SYS_RESTARTABLE_SYSCALLS ;;
+  no) AC_SYS_RESTARTABLE_SYSCALLS ;;
 esac
 AM_CONDITIONAL(AMC_RESTART, test "$ac_cv_sys_restartable_syscalls" = yes)
 
@@ -66,30 +74,30 @@ RC_TYPE_SIG_ATOMIC_T
 
 RC_SYS_V_SIGCLD
 
-dnl Does the kernel handle `#! /interpreter'?
+# Does the kernel handle `#! /interpreter'?
 AC_SYS_INTERPRETER
 case "$ac_cv_sys_interpreter" in
-yes)  AC_DEFINE(HASH_BANG, 1, [Define to 1 if your kernel understands `#!' magic numbers]) ;;
+  yes)  AC_DEFINE(HASH_BANG, 1, [Define to 1 if your kernel understands `#!' magic numbers]) ;;
 esac
 AM_CONDITIONAL(AMC_NO_HASHBANG, test "$ac_cv_sys_interpreter" = no)
 
 
-dnl What do we do for command arguments?  We want /dev/fd or Linux's
-dnl /proc/self/fd.  Failing that, we'll try for POSIX mkfifo(), or a
-dnl mknod() that makes FIFOs.
+# What do we do for command arguments?  We want /dev/fd or Linux's
+# /proc/self/fd.  Failing that, we'll try for POSIX mkfifo(), or a
+# mknod() that makes FIFOs.
 RC_SYS_DEV_FD
 case "$rc_cv_sys_dev_fd" in
-yes)	AC_DEFINE(HAVE_DEV_FD, 1, [Define to 1 if you have /dev/fd.]) ;;
-odd)	AC_DEFINE(HAVE_PROC_SELF_FD, 1, [Define to 1 if you have /proc/self/fd.]) ;;
-no)	AC_CHECK_FUNCS(mkfifo) ;;
+  yes)	AC_DEFINE(HAVE_DEV_FD, 1, [Define to 1 if you have /dev/fd.]) ;;
+  odd)	AC_DEFINE(HAVE_PROC_SELF_FD, 1, [Define to 1 if you have /proc/self/fd.]) ;;
+  no)	AC_CHECK_FUNCS(mkfifo) ;;
 esac
 
 case "$ac_cv_func_mkfifo" in
-yes)	AC_DEFINE(HAVE_FIFO, 1, [Define to 1 if you have the `mkfifo' function.]) ;;
-no)	RC_SYS_MKNOD_FIFO ;;
+  yes)	AC_DEFINE(HAVE_FIFO, 1, [Define to 1 if you have the `mkfifo' function.]) ;;
+  no)	RC_SYS_MKNOD_FIFO ;;
 esac
 
-dnl Now handle arguments.
+# Now handle arguments.
 AC_ARG_ENABLE(builtin-echo, [  --disable-builtin-echo  Don't include \`echo' as a builtin],
 	test "x$enableval" != "xno" && AC_DEFINE(RC_ECHO, 1, [Define to 1 to include `echo' as a builtin.]),
 	AC_DEFINE(RC_ECHO))
@@ -184,8 +192,8 @@ AC_ARG_WITH(vrl, [  --with-vrl              Gert-Jan Vons's line editing],
 		AC_DEFINE(EDITLINE) LIBS="$LIBS -lvrl $rc_lib_tgetent",
 		AC_MSG_ERROR(vrl library not found), $rc_lib_tgetent))
 
-dnl There are (at least) two incompatible versions of readline, and we
-dnl need to know which one we are using.  We don't support readline 2.0.
+# There are (at least) two incompatible versions of readline, and we
+# need to know which one we are using.  We don't support readline 2.0.
 AC_ARG_WITH(readline, [  --with-readline         Bloated GNU line editing], [
 	AC_CHECK_LIB(readline, readline, [
 		AC_DEFINE(READLINE, 1, [Define to 1 if you are using GNU `readline'.])
@@ -195,7 +203,7 @@ AC_ARG_WITH(readline, [  --with-readline         Bloated GNU line editing], [
 ])
 AM_CONDITIONAL(AMC_READLINE, test "${with_readline+set}" = set)
 
-dnl For some reason CPPFLAGS doesn't get propagated.
+# For some reason CPPFLAGS doesn't get propagated.
 AC_SUBST(CPPFLAGS)
 
 AC_OUTPUT(Makefile)

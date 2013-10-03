@@ -1,6 +1,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifdef NSIG
 #define NUMSIG NSIG
@@ -197,26 +198,48 @@ static void barf(const char *msg) {
     exit(1);
 }
 
-int main(void) {
+static void usage() {
+    fprintf(stderr, "usage: mksignals DIR\n");
+}
+
+int main(int argc, char *argv[]) {
     int maxsig = NUMSIG-1;
     int s;
     struct signaming *snp;
     FILE *outf;
+    char *outfile;
+    int dirlen, len;
+
+    if (argc != 2) {
+        usage();
+        return -1;
+    }
+    
+    dirlen = strlen(argv[1]);
+    outfile = (char *) malloc(dirlen + strlen("sigmsgs.h") + 2);
+    if (outfile == NULL) {
+        barf("cannot malloc");
+    }
+    sprintf(outfile, "%s/%s", argv[1], "sigmsgs.h");
 
     for (snp = signamings; snp->signo; ++snp)
-	if (snp->signo > maxsig)
-	    maxsig = snp->signo;
+        if (snp->signo > maxsig)
+            maxsig = snp->signo;
 
-    outf = fopen("sigmsgs.h", "w");
-    if (!outf) barf("could not open sigmsgs.h for writing");
+    outf = fopen(outfile, "w");
+    if (!outf) 
+        barf("could not open sigmsgs.h for writing");
     fprintf(outf, "typedef struct {\n");
     fprintf(outf, "\tchar *name, *msg;\n");
     fprintf(outf, "} Sigmsgs;\n");
     fprintf(outf, "extern Sigmsgs signals[];\n");
     fprintf(outf, "#define NUMOFSIGNALS %d\n", maxsig+1);
-    if (fclose(outf) == EOF)  barf("could not fclose sigmsgs.h after writing");
+    if (fclose(outf) == EOF)  
+        barf("could not fclose sigmsgs.h after writing");
 
-    outf = fopen("sigmsgs.c", "w");
+    sprintf(outfile, "%s/%s", argv[1], "sigmsgs.c");
+
+    outf = fopen(outfile, "w");
     if (!outf) barf("could not open sigmsgs.c for writing");
     fprintf(outf, "#include \"sigmsgs.h\"\n\n");
     fprintf(outf, "Sigmsgs signals[] = {\n");
@@ -225,15 +248,20 @@ int main(void) {
     /* yes, we could avoid the quadratic searching with an aux array. fap. */
     for (s = 1; s <= maxsig; ++s) {
         for (snp = signamings; snp->signo && snp->signo != s; ++snp)
-	    /* */;
-	if (snp->signo)
-	    fprintf(outf, "\t{\"%s\",\t\"%s\"},\n",
-		    snp->signame, snp->sigmsg);
-	else
-	    fprintf(outf, "\t{\"sigunknown%d\",\t\"unknown signal %d\"},\n",
-		    s, s);
+            /* */;
+    
+        if (snp->signo)
+            fprintf(outf, "\t{\"%s\",\t\"%s\"},\n",
+                snp->signame, snp->sigmsg);
+        else
+            fprintf(outf, "\t{\"sigunknown%d\",\t\"unknown signal %d\"},\n",
+                s, s);
     }
+    
     fprintf(outf, "};\n");
-    if (fclose(outf) == EOF) barf("could not fclose sigmsgs.c after writing");
+    if (fclose(outf) == EOF) 
+        barf("could not fclose sigmsgs.c after writing");
+
+    free(outfile);
     return 0;
 }
