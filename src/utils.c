@@ -37,9 +37,12 @@ extern void uerror(char *s) {
 #define PANICMSG "rc panic: "
 
 extern void panic(char *s) {
-	write(2, PANICMSG, conststrlen(PANICMSG));
-	write(2, s, strlen(s));
-	write(2, "!\n", 2);
+	if (write(2, PANICMSG, conststrlen(PANICMSG)) < 0)
+    exit(1);
+	if (write(2, s, strlen(s)) < 0)
+    exit(1);
+	if (write(2, "!\n", 2) < 0)
+    exit(1);
 	exit(1);
 }
 

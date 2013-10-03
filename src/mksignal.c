@@ -208,7 +208,7 @@ int main(int argc, char *argv[]) {
     struct signaming *snp;
     FILE *outf;
     char *outfile;
-    int dirlen, len;
+    int dirlen;
 
     if (argc != 2) {
         usage();

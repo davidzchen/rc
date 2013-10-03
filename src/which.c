@@ -77,6 +77,7 @@ extern char *which(char *name, bool verbose) {
 	static size_t testlen = 0;
 	List *path;
 	int len;
+  int ret;
 	if (name == NULL)	/* no filename? can happen with "> foo" as a command */
 		return NULL;
 	if (!initialized) {
@@ -95,7 +96,11 @@ extern char *which(char *name, bool verbose) {
 #endif
 		if (ngroups) {	
 			gidset = ealloc(ngroups * sizeof(GETGROUPS_T));
-			getgroups(ngroups, gidset);
+			ret = getgroups(ngroups, gidset);
+      if (ret < 0) {
+        uerror("getgroups");
+        rc_exit(1);
+      }
 		}
 #endif
 	}

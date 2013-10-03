@@ -15,11 +15,14 @@
 static const int mode_masks[] = {
 	/* rFrom */	O_RDONLY,
 	/* rCreate */	O_TRUNC | O_CREAT | O_WRONLY,
-	/* rAppend */	O_APPEND | O_CREAT | O_WRONLY
+	/* rAppend */	O_APPEND | O_CREAT | O_WRONLY,
+  /* invalid */ 0,
+  /* invalid */ 0
 };
 
 extern int rc_open(const char *name, redirtype m) {
-	if ((unsigned) m >= arraysize(mode_masks))
+	if ((unsigned) m >= arraysize(mode_masks) ||
+      (unsigned) m >= rHeredoc)
 		panic("bad mode passed to rc_open");
 	return open(name, mode_masks[m], 0666);
 }
@@ -34,7 +37,7 @@ extern bool makeblocking(int fd) {
 		uerror("fcntl");
 		rc_error(NULL);
 	}
-	if (! (flags & O_NONBLOCK))
+	if (!(flags & O_NONBLOCK))
 		return FALSE;
 	flags &= ~O_NONBLOCK;
 	if (fcntl(fd, F_SETFL, (long) flags) == -1) {
