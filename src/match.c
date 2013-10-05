@@ -1,6 +1,8 @@
 /* match.c: pattern matching routines */
 
 #include "rc.h"
+#include "match.h"
+#include "utils.h"
 
 static int rangematch(char *, char);
 

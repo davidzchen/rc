@@ -2,6 +2,11 @@
 
 #include "rc.h"
 #include "parse.h"
+#include "lex.h"
+#include "nalloc.h"
+#include "print.h"
+#include "input.h"
+#include "heredoc.h"
 
 /*
 	Special characters (i.e., "non-word") in rc:

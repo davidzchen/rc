@@ -1,6 +1,14 @@
 /* var.c: provide "public" functions for adding and removing variables from the symbol table */
 
 #include "rc.h"
+#include "nalloc.h"
+#include "utils.h"
+#include "list.h"
+#include "footobar.h"
+#include "print.h"
+#include "wait.h"
+#include "status.h"
+#include "hash.h"
 
 static void colonassign(char *, List *, bool);
 static void listassign(char *, List *, bool);

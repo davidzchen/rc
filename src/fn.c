@@ -3,12 +3,22 @@
    Support for signal handlers is also found here.
 */
 
-#include "rc.h"
-
 #include <signal.h>
 #include <errno.h>
 
+#include "rc.h"
 #include "sigmsgs.h"
+#include "signals.h"
+#include "hash.h"
+#include "print.h"
+#include "nalloc.h"
+#include "utils.h"
+#include "except.h"
+#include "input.h"
+#include "builtins.h"
+#include "tree.h"
+#include "status.h"
+#include "footobar.h"
 
 static void fn_handler(int), dud_handler(int);
 

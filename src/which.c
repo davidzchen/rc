@@ -8,12 +8,16 @@
    and to strip out unneeded functionality.
 */
 
-#include "rc.h"
-
 #include <errno.h>
 #include <sys/stat.h>
 
+#include "rc.h"
 #include "getgroups.h"
+#include "nalloc.h"
+#include "print.h"
+#include "utils.h"
+#include "footobar.h"
+#include "hash.h"
 
 #define X_USR 0100
 #define X_GRP 0010

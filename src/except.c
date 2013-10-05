@@ -1,9 +1,17 @@
-#include "rc.h"
-
 #include <setjmp.h>
 #include <signal.h>
 
+#include "rc.h"
 #include "jbwrap.h"
+#include "nalloc.h"
+#include "hash.h"
+#include "input.h"
+#include "footobar.h"
+#include "utils.h"
+#include "status.h"
+#include "walk.h"
+#include "print.h"
+#include "except.h"
 
 /*
    A return goes back stack frames to the last return. A break does

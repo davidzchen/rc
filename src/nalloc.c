@@ -1,5 +1,8 @@
 /* nalloc.c: a simple single-arena allocator for command-line-lifetime allocation */
 #include "rc.h"
+#include "nalloc.h"
+#include "utils.h"
+#include "footobar.h"
 
 static struct Block {
 	size_t used, size;

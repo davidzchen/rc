@@ -1,6 +1,8 @@
 /* list.c: routines for manipulating the List type */
 
 #include "rc.h"
+#include "list.h"
+#include "nalloc.h"
 
 /*
    These list routines assign meta values of null to the resulting lists;

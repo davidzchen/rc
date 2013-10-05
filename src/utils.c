@@ -1,11 +1,14 @@
 /* utils.c: functions of general utility */
 
-#include "rc.h"
-
 #include <errno.h>
 #include <setjmp.h>
 
+#include "rc.h"
+#include "utils.h"
 #include "jbwrap.h"
+#include "utils.h"
+#include "nalloc.h"
+#include "print.h"
 
 /* print error with line number on noninteractive shells (i.e., scripts) */
 

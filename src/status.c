@@ -3,7 +3,13 @@
 #include "rc.h"
 #include "sigmsgs.h"
 #include "statval.h"
+#include "status.h"
 #include "wait.h"
+#include "print.h"
+#include "footobar.h"
+#include "walk.h"
+#include "nalloc.h"
+#include "utils.h"
 
 /* status == the wait() value of the last command in the pipeline, or the last command */
 

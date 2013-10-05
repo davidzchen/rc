@@ -1,10 +1,22 @@
 /* input.c: i/o routines for files and pseudo-files (strings) */
 
-#include "rc.h"
-
 #include <errno.h>
 
+#include "rc.h"
+#include "input.h"
 #include "jbwrap.h"
+#include "nalloc.h"
+#include "print.h"
+#include "signals.h"
+#include "except.h"
+#include "utils.h"
+#include "builtins.h"
+#include "open.h"
+#include "system.h"
+#include "hash.h"
+#include "glom.h"
+#include "walk.h"
+#include "lex.h"
 
 /*
    NB: character unget is supported for up to two characters, but NOT

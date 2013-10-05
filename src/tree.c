@@ -1,6 +1,9 @@
 /* tree.c: functions for manipulating parse-trees. (create, copy, delete) */
 
 #include "rc.h"
+#include "tree.h"
+#include "nalloc.h"
+#include "utils.h"
 
 /* make a new node, pass it back to yyparse. Used to generate the parsetree. */
 

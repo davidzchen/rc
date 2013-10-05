@@ -1,6 +1,15 @@
 /* redir.c: code for opening files and piping heredocs after fork but before exec. */
 
 #include "rc.h"
+#include "redir.h"
+#include "glob.h"
+#include "open.h"
+#include "utils.h"
+#include "glom.h"
+#include "except.h"
+#include "wait.h"
+#include "system.h"
+#include "hash.h"
 
 /*
    Walk the redirection queue, and open files and dup2 to them. Also,

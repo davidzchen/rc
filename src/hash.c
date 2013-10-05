@@ -10,6 +10,11 @@
 
 #include "rc.h"
 #include "sigmsgs.h"
+#include "hash.h"
+#include "nalloc.h"
+#include "list.h"
+#include "tree.h"
+#include "utils.h"
 
 static bool var_exportable(char *);
 static bool fn_exportable(char *);

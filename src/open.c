@@ -1,7 +1,11 @@
 /* open.c: to insulate <fcntl.h> from the rest of rc. */
 
-#include "rc.h"
 #include <fcntl.h>
+
+#include "rc.h"
+#include "open.h"
+#include "utils.h"
+#include "except.h"
 
 /*
    Opens a file with the necessary flags. Assumes the following

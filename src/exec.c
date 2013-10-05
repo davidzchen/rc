@@ -1,11 +1,19 @@
 /* exec.c */
 
-#include "rc.h"
-
 #include <errno.h>
 #include <signal.h>
 
+#include "rc.h"
+#include "exec.h"
 #include "wait.h"
+#include "signals.h"
+#include "footobar.h"
+#include "utils.h"
+#include "hash.h"
+#include "builtins.h"
+#include "redir.h"
+#include "status.h"
+#include "except.h"
 
 /*
    Takes an argument list and does the appropriate thing (calls a

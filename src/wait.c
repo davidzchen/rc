@@ -1,8 +1,14 @@
-#include "rc.h"
-
 #include <errno.h>
 
+#include "rc.h"
 #include "wait.h"
+#include "nalloc.h"
+#include "signals.h"
+#include "except.h"
+#include "utils.h"
+#include "system.h"
+#include "print.h"
+#include "status.h"
 
 bool forked = FALSE;
 

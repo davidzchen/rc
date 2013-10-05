@@ -7,17 +7,31 @@
 	because of a bad umask.
 */
 
-#include "rc.h"
-
 #include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <setjmp.h>
 #include <errno.h>
 
+#include "rc.h"
+#include "builtins.h"
 #include "addon.h"
 #include "jbwrap.h"
 #include "rlimit.h"
+#include "signals.h"
 #include "sigmsgs.h"
+#include "hash.h"
+#include "except.h"
+#include "walk.h"
+#include "tree.h"
+#include "print.h"
+#include "status.h"
+#include "nalloc.h"
+#include "utils.h"
+#include "footobar.h"
+#include "glom.h"
+#include "wait.h"
+#include "input.h"
+#include "open.h"
 
 static void b_break(char **), b_cd(char **), b_eval(char **), b_exit(char **),
 	b_newpgrp(char **), b_return(char **), b_shift(char **), b_umask(char **),

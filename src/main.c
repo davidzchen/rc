@@ -1,6 +1,15 @@
 /* main.c: handles initialization of rc and command line options */
 
 #include "rc.h"
+#include "print.h"
+#include "hash.h"
+#include "footobar.h"
+#include "signals.h"
+#include "input.h"
+#include "glom.h"
+#include "status.h"
+#include "builtins.h"
+#include "open.h"
 
 bool dashdee, dashee, dashvee, dashex, dashell, dashEYE, dasheye,
 	dashen, dashpee, dashess, interactive;

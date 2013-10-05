@@ -1,3 +1,6 @@
+#ifndef SRC_WAIT_H__
+#define SRC_WAIT_H__
+
 #if HAVE_SYS_WAIT_H
 #include <sys/wait.h>
 #endif
@@ -19,5 +22,10 @@
 /* These don't exist in POSIX. */
 #define myWIFDUMPED(s) (((s) & 0x80) != 0)
 
+extern pid_t rc_fork(void);
+extern pid_t rc_wait4(pid_t, int *, bool);
+extern List *sgetapids(void);
+extern void waitforall(void);
+extern bool forked;
 
-
+#endif /* SRC_WAIT_H__ */

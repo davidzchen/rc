@@ -1,3 +1,6 @@
+#ifndef SRC_JBWRAP_H__
+#define SRC_JBWRAP_H__
+
 #include <setjmp.h>
 
 /* If we have POSIX sigjmp_buf and friends, use them.  If we don't, just
@@ -21,3 +24,5 @@ worth it. */
 struct Jbwrap {
 	sigjmp_buf j;
 };
+
+#endif /* SRC_JBWRAP_H__ */

@@ -4,6 +4,13 @@
 */
 
 #include "rc.h"
+#include "print.h"
+#include "nalloc.h"
+#include "list.h"
+#include "input.h"
+#include "utils.h"
+#include "lex.h"
+#include "footobar.h"
 
 /* protect an exported name from brain-dead shells */
 

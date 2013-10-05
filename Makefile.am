@@ -2,6 +2,7 @@ ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 AM_MAKEFLAGS = --no-print-directory
 AM_CPPFLAGS = -I${top_srcdir}/src
+AM_CFLAGS = -std=gnu99
 
 if AMC_HISTORY
 man_MANS = man/rc.1 man/history.1
@@ -48,7 +49,7 @@ src_rc_SOURCES = \
 		src/parse.c \
 		src/print.c \
 		src/redir.c \
-		src/signal.c \
+		src/signals.c \
 		src/status.c \
 		src/tree.c \
 		src/utils.c \
@@ -109,10 +110,10 @@ DISTCLEANFILES = src/sigmsgs.c src/sigmsgs.h src/statval.h src/sigmsgs.o
 # dependency expressed, since the distributed parse.[ch] (generated with
 # byacc, and lightly edited to remove a couple of gcc warnings) are
 # portable (I hope).
-#src/parse.c src/parse.h: src/parse.y
-#	$(YACC) -d src/parse.y
-#	mv src/y.tab.c src/parse.c
-#	mv src/y.tab.h src/parse.h
+src/parse.c src/parse.h: src/parse.y
+	$(YACC) -d src/parse.y
+	mv y.tab.c src/parse.c
+	mv y.tab.h src/parse.h
 
 check: src/trip
 

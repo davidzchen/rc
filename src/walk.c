@@ -1,11 +1,26 @@
 /* walk.c: walks the parse tree. */
 
-#include "rc.h"
-
 #include <signal.h>
 #include <setjmp.h>
 
+#include "rc.h"
 #include "jbwrap.h"
+#include "walk.h"
+#include "signals.h"
+#include "open.h"
+#include "glob.h"
+#include "glom.h"
+#include "hash.h"
+#include "print.h"
+#include "exec.h"
+#include "utils.h"
+#include "except.h"
+#include "status.h"
+#include "wait.h"
+#include "nalloc.h"
+#include "list.h"
+#include "footobar.h"
+#include "redir.h"
 
 /*
    global which indicates whether rc is executing a test;

@@ -1,4 +1,6 @@
 #include "rc.h"
+#include "system.h"
+#include "signals.h"
 
 extern void writeall(int fd, char *buf, size_t remain) {
 	int i;

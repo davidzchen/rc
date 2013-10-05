@@ -1,7 +1,16 @@
 /* glob.c: rc's (ugly) globber. This code is not elegant, but it works */
 
 #include "rc.h"
+#include "glob.h"
 #include "stat.h"
+#include "print.h"
+#include "nalloc.h"
+#include "list.h"
+#include "glom.h"
+#include "match.h"
+#include "footobar.h"
+#include "utils.h"
+#include "signals.h"
 
 /* Lifted from autoconf documentation.*/
 #if HAVE_DIRENT_H

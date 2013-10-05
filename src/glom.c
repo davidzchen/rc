@@ -1,10 +1,22 @@
 /* glom.c: builds an argument list out of words, variables, etc. */
 
-#include "rc.h"
-
 #include <sys/stat.h>
 #include <signal.h>
 #include <errno.h>
+
+#include "rc.h"
+#include "nalloc.h"
+#include "list.h"
+#include "utils.h"
+#include "signals.h"
+#include "glom.h"
+#include "hash.h"
+#include "print.h"
+#include "except.h"
+#include "walk.h"
+#include "system.h"
+#include "wait.h"
+#include "status.h"
 
 static List *backq(Node *, Node *);
 static List *bqinput(List *, int);
