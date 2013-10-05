@@ -4,6 +4,9 @@
   file, or---for older systems---declaring the functions directly.
 */
 
+#ifndef SRC_PROTO_H__
+#define SRC_PROTO_H__
+
 #if HAVE_SYS_TYPES_H
 #include <sys/types.h>
 #endif
@@ -98,3 +101,5 @@ extern char *sys_errlist[];
 #ifdef host_mips
 extern int errno;
 #endif
+
+#endif /* SRC_PROTO_H__ */

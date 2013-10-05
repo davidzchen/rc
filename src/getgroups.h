@@ -1,3 +1,6 @@
+#ifndef SRC_GETGROUPS_H__
+#define SRC_GETGROUPS_H__
+
 #if HAVE_GETGROUPS
 #if HAVE_POSIX_GETGROUPS
 /* We love POSIX. */
@@ -8,3 +11,5 @@ pure BSD system, and we can include <sys/param.h> for NGROUPS. */
 #include <sys/param.h>
 #endif
 #endif
+
+#endif /* SRC_GETGROUP_H__ */

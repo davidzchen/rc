@@ -19,6 +19,9 @@
 
 */
 
+#ifndef SRC_ADDON_H__
+#define SRC_ADDON_H__
+
 #if RC_ADDON
 
 #define ADDONS \
@@ -29,3 +32,5 @@ extern void b_sum(char **av);
 extern void b_prod(char **av);
 
 #endif
+
+#endif /* SRC_ADDON_H__ */

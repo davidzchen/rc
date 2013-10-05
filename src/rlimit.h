@@ -1,5 +1,8 @@
 /* What a mess.  This file attempts to straighten everything out. */
 
+#ifndef SRC_RLIMIT_H__
+#define SRC_RLIMIT_H__
+
 #if HAVE_SETRLIMIT
 
 #if HAVE_SYS_RESOURCE_H
@@ -51,3 +54,5 @@ struct Limit {
 	const struct Suffix *suffix;
 };
 #endif /* HAVE_SETRLIMIT */
+
+#endif /* SRC_RLIMIT_H__ */
