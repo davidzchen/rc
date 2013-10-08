@@ -5,6 +5,7 @@
 
 #include "rc.h"
 #include "jbwrap.h"
+#include "var.h"
 #include "walk.h"
 #include "signals.h"
 #include "open.h"
@@ -21,6 +22,7 @@
 #include "list.h"
 #include "footobar.h"
 #include "redir.h"
+#include "fn.h"
 
 /*
    global which indicates whether rc is executing a test;

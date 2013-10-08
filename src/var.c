@@ -9,6 +9,7 @@
 #include "wait.h"
 #include "status.h"
 #include "hash.h"
+#include "var.h"
 
 static void colonassign(char *, List *, bool);
 static void listassign(char *, List *, bool);

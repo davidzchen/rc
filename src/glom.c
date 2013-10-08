@@ -5,6 +5,7 @@
 #include <errno.h>
 
 #include "rc.h"
+#include "fn.h"
 #include "nalloc.h"
 #include "list.h"
 #include "utils.h"
@@ -17,6 +18,7 @@
 #include "system.h"
 #include "wait.h"
 #include "status.h"
+#include "var.h"
 
 static List *backq(Node *, Node *);
 static List *bqinput(List *, int);

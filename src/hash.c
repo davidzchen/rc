@@ -9,12 +9,14 @@
 */
 
 #include "rc.h"
+#include "fn.h"
 #include "sigmsgs.h"
 #include "hash.h"
 #include "nalloc.h"
 #include "list.h"
 #include "tree.h"
 #include "utils.h"
+#include "var.h"
 
 static bool var_exportable(char *);
 static bool fn_exportable(char *);

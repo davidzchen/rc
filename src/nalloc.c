@@ -3,6 +3,7 @@
 #include "nalloc.h"
 #include "utils.h"
 #include "footobar.h"
+#include "fn.h"
 
 static struct Block {
 	size_t used, size;

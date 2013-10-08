@@ -7,6 +7,7 @@
 #include <errno.h>
 
 #include "rc.h"
+#include "fn.h"
 #include "sigmsgs.h"
 #include "signals.h"
 #include "hash.h"

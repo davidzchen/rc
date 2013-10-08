@@ -2,6 +2,7 @@
 
 #include "rc.h"
 #include "print.h"
+#include "var.h"
 #include "hash.h"
 #include "footobar.h"
 #include "signals.h"
@@ -10,6 +11,7 @@
 #include "status.h"
 #include "builtins.h"
 #include "open.h"
+#include "fn.h"
 
 bool dashdee, dashee, dashvee, dashex, dashell, dashEYE, dasheye,
 	dashen, dashpee, dashess, interactive;

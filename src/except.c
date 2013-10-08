@@ -12,6 +12,8 @@
 #include "walk.h"
 #include "print.h"
 #include "except.h"
+#include "fn.h"
+#include "var.h"
 
 /*
    A return goes back stack frames to the last return. A break does

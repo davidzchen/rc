@@ -3,6 +3,8 @@
 #include <errno.h>
 
 #include "rc.h"
+#include "fn.h"
+#include "var.h"
 #include "input.h"
 #include "jbwrap.h"
 #include "nalloc.h"

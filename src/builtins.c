@@ -14,6 +14,7 @@
 
 #include "rc.h"
 #include "builtins.h"
+#include "var.h"
 #include "addon.h"
 #include "jbwrap.h"
 #include "rlimit.h"
@@ -32,6 +33,8 @@
 #include "wait.h"
 #include "input.h"
 #include "open.h"
+#include "fn.h"
+#include "which.h"
 
 static void b_break(char **), b_cd(char **), b_eval(char **), b_exit(char **),
 	b_newpgrp(char **), b_return(char **), b_shift(char **), b_umask(char **),

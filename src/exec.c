@@ -14,6 +14,8 @@
 #include "redir.h"
 #include "status.h"
 #include "except.h"
+#include "fn.h"
+#include "which.h"
 
 /*
    Takes an argument list and does the appropriate thing (calls a
