@@ -10,7 +10,7 @@
    Any new builtin functions must also have proper prototypes in this
    file.  This is always of the same form.
 
-	void b_NAME(char **av);
+	void builtin_NAME(char **av);
 
    The first argument, av[0], is the name of the builtin.  The last
    argument is followed by a NULL pointer.
@@ -25,11 +25,11 @@
 #if RC_ADDON
 
 #define ADDONS \
-	{ b_sum,	"+" }, \
-	{ b_prod, "x" },
+	{ builtin_sum,	"+" }, \
+	{ builtin_prod, "x" },
 
-extern void b_sum(char **av);
-extern void b_prod(char **av);
+extern void builtin_sum(char **av);
+extern void builtin_prod(char **av);
 
 #endif
 

@@ -282,7 +282,7 @@ extern Node *doit(bool clobberexecit) {
 			fname[2] = NULL;
 			rcrc = TRUE;
 			dashell = FALSE;
-			b_dot(fname);
+			builtin_dot(fname);
 		}
 		if (interactive) {
 			List *s;

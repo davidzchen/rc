@@ -6,7 +6,7 @@
 #include "common.h"
 #include "addon.h"
 
-void b_sum(char **av) {
+void builtin_sum(char **av) {
 	long sum = 0;
 
 	while (*++av)
@@ -15,7 +15,7 @@ void b_sum(char **av) {
 	set(TRUE);
 }
 
-void b_prod(char **av) {
+void builtin_prod(char **av) {
 	long sum = 1;
 
 	while (*++av)

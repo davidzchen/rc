@@ -106,7 +106,7 @@ quitopts:
 		else
 			pushstring(dashsee, TRUE);
 	} else if (*argv != NULL) {	/* else from a file? */
-		b_dot(--argv);
+		builtin_dot(--argv);
 		rc_exit(getstatus());
 	} else {			/* else stdin */
 		pushfd(0);

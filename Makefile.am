@@ -73,7 +73,7 @@ noinst_HEADERS = \
 		src/jbwrap.h \
 		src/parse.h \
 		src/proto.h \
-		src/rc.h \
+		src/common.h \
 		src/rlimit.h \
 		src/stat.h \
 		src/wait.h

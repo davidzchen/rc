@@ -46,15 +46,15 @@ extern void exec(List *s, bool parent) {
 		*/
 		saw_builtin = FALSE;
 
-		if (b == b_exec) {
+		if (b == builtin_exec) {
 			av++;
 			saw_exec = TRUE;
 			parent = FALSE;
-		} else if (b == b_builtin) {
+		} else if (b == builtin_builtin) {
 			av++;
 			saw_builtin = TRUE;
 		}
-	} while (b == b_exec || b == b_builtin);
+	} while (b == builtin_exec || b == builtin_builtin);
 	if (*av == NULL && saw_exec) { /* do redirs and return on a null exec */
 		doredirs();
 		return;

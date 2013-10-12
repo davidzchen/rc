@@ -37,41 +37,48 @@
 #include "which.h"
 #include "option.h"
 
-static void b_break(char **), b_cd(char **), b_eval(char **), b_exit(char **),
-	b_newpgrp(char **), b_return(char **), b_shift(char **), b_umask(char **),
-	b_wait(char **), b_whatis(char **);
+static void builtin_break(char **);
+static void builtin_cd(char **);
+static void builtin_eval(char **);
+static void builtin_exit(char **);
+static void builtin_newpgrp(char **);
+static void builtin_return(char **);
+static void builtin_shift(char **);
+static void builtin_umask(char **);
+static void builtin_wait(char **);
+static void builtin_whatis(char **);
 
 #if HAVE_SETRLIMIT
-static void b_limit(char **);
+static void builtin_limit(char **);
 #endif
 
 #if RC_ECHO
-static void b_echo(char **);
+static void builtin_echo(char **);
 #endif
 
 static struct {
 	builtin_t *p;
 	char *name;
 } builtins[] = {
-	{ b_break,	"break" },
-	{ b_builtin,	"builtin" },
-	{ b_cd,		"cd" },
+	{ builtin_break,	"break" },
+	{ builtin_builtin,	"builtin" },
+	{ builtin_cd,		"cd" },
 #if RC_ECHO
-	{ b_echo,	"echo" },
+	{ builtin_echo,	"echo" },
 #endif
-	{ b_eval,	"eval" },
-	{ b_exec,	"exec" },
-	{ b_exit,	"exit" },
+	{ builtin_eval,	"eval" },
+	{ builtin_exec,	"exec" },
+	{ builtin_exit,	"exit" },
 #if HAVE_SETRLIMIT
-	{ b_limit,	"limit" },
+	{ builtin_limit,	"limit" },
 #endif
-	{ b_newpgrp,	"newpgrp" },
-	{ b_return,	"return" },
-	{ b_shift,	"shift" },
-	{ b_umask,	"umask" },
-	{ b_wait,	"wait" },
-	{ b_whatis,	"whatis" },
-	{ b_dot,	"." },
+	{ builtin_newpgrp,	"newpgrp" },
+	{ builtin_return,	"return" },
+	{ builtin_shift,	"shift" },
+	{ builtin_umask,	"umask" },
+	{ builtin_wait,	"wait" },
+	{ builtin_whatis,	"whatis" },
+	{ builtin_dot,	"." },
 #ifdef ADDONS
 	ADDONS
 #endif
@@ -85,8 +92,8 @@ extern builtin_t *isbuiltin(char *s) {
 	return NULL;
 }
 
-/* funcall() is the wrapper used to invoke shell functions. pushes $*, and "return" returns here. */
-
+// funcall() is the wrapper used to invoke shell functions. pushes $*, and 
+// "return" returns here.
 extern void funcall(char **av) {
 	Jbwrap j;
 	Estack e1, e2;
@@ -116,13 +123,13 @@ static void badnum(char *num) {
 
 /* a dummy command. (exec() performs "exec" simply by not forking) */
 
-extern void b_exec(char **ignore) {
+extern void builtin_exec(char **ignore) {
 }
 
 #if RC_ECHO
 /* echo -n omits a newline. echo -- -n echos '-n' */
 
-static void b_echo(char **av) {
+static void builtin_echo(char **av) {
 	char *format = "%A\n";
 	if (*++av != NULL) {
 		if (streq(*av, "-n"))
@@ -137,7 +144,7 @@ static void b_echo(char **av) {
 
 /* cd. traverse $cdpath if the directory given is not an absolute pathname */
 
-static void b_cd(char **av) {
+static void builtin_cd(char **av) {
 	List *s, nil;
 	char *path = NULL;
 	size_t t, pathlen = 0;
@@ -187,7 +194,7 @@ static void b_cd(char **av) {
 	}
 }
 
-static void b_umask(char **av) {
+static void builtin_umask(char **av) {
 	int i;
 	if (*++av == NULL) {
 		set(TRUE);
@@ -209,7 +216,7 @@ static void b_umask(char **av) {
 	}
 }
 
-static void b_exit(char **av) {
+static void builtin_exit(char **av) {
 	if (*++av != NULL)
 		ssetstatus(av);
 	rc_exit(getstatus());
@@ -217,7 +224,7 @@ static void b_exit(char **av) {
 
 /* raise a "return" exception, i.e., return from a function. if an integer argument is present, set $status to it */
 
-static void b_return(char **av) {
+static void builtin_return(char **av) {
 	if (*++av != NULL)
 		ssetstatus(av);
 	rc_raise(eReturn);
@@ -225,7 +232,7 @@ static void b_return(char **av) {
 
 /* raise a "break" exception for breaking out of for and while loops */
 
-static void b_break(char **av) {
+static void builtin_break(char **av) {
 	if (av[1] != NULL) {
 		arg_count("break");
 		return;
@@ -235,7 +242,7 @@ static void b_break(char **av) {
 
 /* shift $* n places (default 1) */
 
-static void b_shift(char **av) {
+static void builtin_shift(char **av) {
 	int shift = (av[1] == NULL ? 1 : a2u(av[1]));
 	List *s, *dollarzero;
 	if (av[1] != NULL && av[2] != NULL) {
@@ -263,12 +270,12 @@ static void b_shift(char **av) {
 
 /* dud function */
 
-extern void b_builtin(char **ignore) {
+extern void builtin_builtin(char **ignore) {
 }
 
 /* wait for a given process, or all outstanding processes */
 
-static void b_wait(char **av) {
+static void builtin_wait(char **av) {
 	int status;
 	pid_t pid;
 	if (av[1] == NULL) {
@@ -306,7 +313,7 @@ static bool issig(char *s) {
 	return FALSE;
 }
 
-static void b_whatis(char **av) {
+static void builtin_whatis(char **av) {
 	bool ess, eff, vee, pee, bee;
 	bool f, found;
 	int i, ac, c;
@@ -372,7 +379,7 @@ static void b_whatis(char **av) {
 
 /* push a string to be eval'ed onto the input stack. evaluate it */
 
-static void b_eval(char **av) {
+static void builtin_eval(char **av) {
 	bool i = interactive;
 	if (av[1] == NULL)
 		return;
@@ -387,7 +394,7 @@ static void b_eval(char **av) {
    input source.
 */
 
-extern void b_dot(char **av) {
+extern void builtin_dot(char **av) {
 	int fd;
 	bool old_i = interactive, i = FALSE;
 	Estack e;
@@ -429,7 +436,7 @@ extern void b_dot(char **av) {
 
 /* put rc into a new pgrp. Used on the NeXT where the Terminal program is broken (sigh) */
 
-static void b_newpgrp(char **av) {
+static void builtin_newpgrp(char **av) {
 	if (av[1] != NULL) {
 		arg_count("newpgrp");
 		return;
@@ -534,7 +541,7 @@ static bool parselimit(const struct Limit *resource, rlim_t *limit, char *s) {
 	return TRUE;
 }
 
-static void b_limit(char **av) {
+static void builtin_limit(char **av) {
 	const struct Limit *lp = limits;
 	bool hard = FALSE;
 	if (*++av != NULL && streq(*av, "-h")) {
