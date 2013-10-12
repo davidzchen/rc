@@ -255,9 +255,9 @@ extern void flushu() {
 		ugchar(c);
 }
 
-/* the wrapper loop in rc: prompt for commands until EOF, calling yyparse and walk() */
-
-extern Node *doit(bool clobberexecit) {
+// the wrapper loop in rc: prompt for commands until EOF, calling yyparse and 
+// walk().
+extern Node *rc_loop(bool clobberexecit) {
 	bool eof;
 	bool execit;
 	Jbwrap j;
@@ -333,7 +333,7 @@ extern Node *parseline(char *extdef) {
 	in[1] = NULL;
 	interactive = FALSE;
 	pushstring(in, TRUE);
-	fun = doit(FALSE);
+	fun = rc_loop(FALSE);
 	interactive = i;
 	return fun;
 }

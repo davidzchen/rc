@@ -385,7 +385,7 @@ static void builtin_eval(char **av) {
 		return;
 	interactive = FALSE;
 	pushstring(av + 1, i); /* don't reset line numbers on noninteractive eval */
-	doit(TRUE);
+	rc_loop(TRUE);
 	interactive = i;
 }
 
@@ -428,7 +428,7 @@ extern void builtin_dot(char **av) {
 	interactive = i;
 	star.name = "*";
 	except(eVarstack, star, &e);
-	doit(TRUE);
+	rc_loop(TRUE);
 	varrm("*", TRUE);
 	unexcept(); /* eVarstack */
 	interactive = old_i;
