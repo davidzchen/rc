@@ -6,7 +6,7 @@
 #include "nalloc.h"
 #include "hash.h"
 #include "input.h"
-#include "footobar.h"
+#include "convert.h"
 #include "utils.h"
 #include "status.h"
 #include "walk.h"

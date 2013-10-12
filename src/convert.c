@@ -1,5 +1,5 @@
 /*
-   footobar.c: a collection of functions to convert internal representations of
+   convert.c: a collection of functions to convert internal representations of
    variables and functions to external representations, and vice versa
 */
 
@@ -10,7 +10,7 @@
 #include "input.h"
 #include "utils.h"
 #include "lex.h"
-#include "footobar.h"
+#include "convert.h"
 
 /* protect an exported name from brain-dead shells */
 

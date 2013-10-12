@@ -20,7 +20,7 @@
 #include "wait.h"
 #include "nalloc.h"
 #include "list.h"
-#include "footobar.h"
+#include "convert.h"
 #include "redir.h"
 #include "fn.h"
 

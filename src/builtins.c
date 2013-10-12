@@ -28,7 +28,7 @@
 #include "status.h"
 #include "nalloc.h"
 #include "utils.h"
-#include "footobar.h"
+#include "convert.h"
 #include "glom.h"
 #include "wait.h"
 #include "input.h"

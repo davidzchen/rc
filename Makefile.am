@@ -33,7 +33,7 @@ src_rc_SOURCES = \
 		src/except.c \
 		src/exec.c \
 		src/fn.c \
-		src/footobar.c \
+		src/convert.c \
 		src/option.c \
 		src/glob.c \
 		src/glom.c \

@@ -19,7 +19,7 @@
 #include "builtins.h"
 #include "tree.h"
 #include "status.h"
-#include "footobar.h"
+#include "convert.h"
 
 static void fn_handler(int), dud_handler(int);
 

@@ -17,7 +17,7 @@
 #include "nalloc.h"
 #include "print.h"
 #include "utils.h"
-#include "footobar.h"
+#include "convert.h"
 #include "hash.h"
 #include "fn.h"
 

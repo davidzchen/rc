@@ -6,7 +6,7 @@
 #include "status.h"
 #include "wait.h"
 #include "print.h"
-#include "footobar.h"
+#include "convert.h"
 #include "walk.h"
 #include "nalloc.h"
 #include "utils.h"

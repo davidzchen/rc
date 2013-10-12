@@ -2,7 +2,7 @@
 #include "rc.h"
 #include "nalloc.h"
 #include "utils.h"
-#include "footobar.h"
+#include "convert.h"
 #include "fn.h"
 
 static struct Block {

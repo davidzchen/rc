@@ -4,7 +4,7 @@
 #include "print.h"
 #include "var.h"
 #include "hash.h"
-#include "footobar.h"
+#include "convert.h"
 #include "signals.h"
 #include "input.h"
 #include "glom.h"
