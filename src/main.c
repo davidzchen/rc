@@ -12,6 +12,7 @@
 #include "builtins.h"
 #include "open.h"
 #include "fn.h"
+#include "option.h"
 
 bool dashdee, dashee, dashvee, dashex, dashell, dashEYE, dasheye,
 	dashen, dashpee, dashess, interactive;

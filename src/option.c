@@ -1,6 +1,6 @@
 #include "rc.h"
 #include "print.h"
-#include "getopt.h"
+#include "option.h"
 
 int     rc_opterr = 1;
 int     rc_optind = 1;

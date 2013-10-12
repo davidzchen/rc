@@ -34,7 +34,7 @@ src_rc_SOURCES = \
 		src/exec.c \
 		src/fn.c \
 		src/footobar.c \
-		src/getopt.c \
+		src/option.c \
 		src/glob.c \
 		src/glom.c \
 		src/hash.c \
