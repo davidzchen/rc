@@ -3,7 +3,7 @@
    provides an example of how to add new builtins to rc.
 */
 
-#include "rc.h"
+#include "common.h"
 #include "addon.h"
 
 void b_sum(char **av) {

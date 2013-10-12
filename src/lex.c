@@ -1,8 +1,12 @@
 /* lex.c: rc's lexical analyzer */
 
-#include "rc.h"
-#include "parse.h"
+#include "common.h"
+// TODO: Wrap generated parse.h so that redir.h, and any other headers that
+//       the parser requires, are included properly.
+#include "redir.h"
+#include "parser.h"
 #include "lex.h"
+#include "parse.h"
 #include "nalloc.h"
 #include "print.h"
 #include "input.h"
@@ -22,7 +26,7 @@
 
 	Note: to save the trouble of declaring these arrays with TRUEs
 	and FALSEs, I am assuming that FALSE = 0, TRUE = 1. (and so is
-	it declared in rc.h)
+	it declared in common.h)
 */
 
 #define BUFSIZE ((size_t) 1000)	/*	malloc hates power of 2 buffers? */

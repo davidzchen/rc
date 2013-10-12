@@ -7,11 +7,13 @@
 %{
 /* note that this actually needs to appear before any system header
    files are included; byacc likes to throw in <stdlib.h> first. */
-#include "rc.h"
+#include "common.h"
 #include "lex.h"
 #include "heredoc.h"
 #include "tree.h"
 #include "nalloc.h"
+#include "redir.h"
+#include "parser.h"
 
 static Node *star, *nolist;
 Node *parsetree;	/* not using yylval because bison declares it as an auto */

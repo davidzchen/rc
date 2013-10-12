@@ -1,6 +1,6 @@
 /* tree.c: functions for manipulating parse-trees. (create, copy, delete) */
 
-#include "rc.h"
+#include "common.h"
 #include "tree.h"
 #include "nalloc.h"
 #include "utils.h"

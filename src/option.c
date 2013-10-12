@@ -1,4 +1,4 @@
-#include "rc.h"
+#include "common.h"
 #include "print.h"
 #include "option.h"
 

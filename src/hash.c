@@ -8,7 +8,7 @@
    to yyparse() is involved.
 */
 
-#include "rc.h"
+#include "common.h"
 #include "fn.h"
 #include "sigmsgs.h"
 #include "hash.h"

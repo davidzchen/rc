@@ -3,7 +3,7 @@
 #include <errno.h>
 #include <setjmp.h>
 
-#include "rc.h"
+#include "common.h"
 #include "utils.h"
 #include "jbwrap.h"
 #include "utils.h"

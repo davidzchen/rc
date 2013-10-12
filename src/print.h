@@ -1,6 +1,39 @@
 #ifndef SRC_PRINT_H__
 #define SRC_PRINT_H__
 
+// Format->flags values
+enum {
+  FMT_quad = 1,       /* %q */
+  FMT_long = 2,       /* %l */
+  FMT_unsigned = 8,   /* %u */
+  FMT_zeropad = 16,   /* %0 */
+  FMT_leftside = 32,  /* %- */
+  FMT_altform = 64,   /* %# */
+  FMT_f1set = 128,    /* %<n> */
+  FMT_f2set = 256,    /* %.<n> */
+};
+
+typedef struct Format {
+  // For the formatting routines.
+  va_list args;
+  long flags;
+  long f1;
+  long f2;
+
+  // For the buffer maintenance routines.
+  char *buf;
+  char *bufbegin;
+  char *bufend;
+  int flushed;
+  void (*grow)(struct Format *, size_t);
+  union {
+    int n;
+    void *p;
+  } u;
+} Format;
+
+typedef bool (*Conv)(Format *, int);
+
 /*
    The following prototype should be:
 extern Conv fmtinstall(int, Conv);

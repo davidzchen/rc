@@ -1,6 +1,13 @@
 #ifndef SRC_FN_H__
 #define SRC_FN_H__
 
+#include "parser.h"
+
+typedef struct rc_Function {
+  Node *def;
+  char *extdef;
+} rc_Function;
+
 /* here for odd reasons; user-defined signal handlers are kept in fn.c */
 extern void rc_exit(int);
 extern void inithandler(void);

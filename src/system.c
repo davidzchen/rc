@@ -1,4 +1,4 @@
-#include "rc.h"
+#include "common.h"
 #include "system.h"
 #include "signals.h"
 

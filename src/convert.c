@@ -3,10 +3,10 @@
    variables and functions to external representations, and vice versa
 */
 
-#include "rc.h"
+#include "common.h"
 #include "print.h"
 #include "nalloc.h"
-#include "list.h"
+#include "redir.h"
 #include "input.h"
 #include "utils.h"
 #include "lex.h"

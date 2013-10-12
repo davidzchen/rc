@@ -1,6 +1,6 @@
 /* list.c: routines for manipulating the List type */
 
-#include "rc.h"
+#include "common.h"
 #include "list.h"
 #include "nalloc.h"
 

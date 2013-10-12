@@ -1,6 +1,8 @@
 #ifndef SRC_ALLOC_H__
 #define SRC_ALLOC_H__
 
+typedef struct Block Block;
+
 extern void *ealloc(size_t);
 extern void *erealloc(void *, size_t);
 extern void efree(void *);

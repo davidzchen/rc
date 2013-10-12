@@ -2,7 +2,7 @@
 
 #include <errno.h>
 
-#include "rc.h"
+#include "common.h"
 #include "fn.h"
 #include "var.h"
 #include "input.h"

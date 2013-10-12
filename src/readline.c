@@ -1,7 +1,7 @@
-#include "rc.h"
 
 #include <signal.h>
 
+#include "common.h"
 #include "jbwrap.h"
 
 /* This is hairy.  GNU readline is broken.  It tries to behave like a

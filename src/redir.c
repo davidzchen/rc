@@ -1,6 +1,6 @@
 /* redir.c: code for opening files and piping heredocs after fork but before exec. */
 
-#include "rc.h"
+#include "common.h"
 #include "fn.h"
 #include "redir.h"
 #include "glob.h"

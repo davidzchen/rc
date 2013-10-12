@@ -1,6 +1,6 @@
 /* main.c: handles initialization of rc and command line options */
 
-#include "rc.h"
+#include "common.h"
 #include "print.h"
 #include "var.h"
 #include "hash.h"

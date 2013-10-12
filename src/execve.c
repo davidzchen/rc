@@ -8,7 +8,7 @@
 #include <errno.h>
 
 #include "exec.h"
-#include "rc.h"
+#include "common.h"
 
 #define giveupif(x) { if (x) goto fail; }
 

@@ -3,7 +3,7 @@
 #include <signal.h>
 #include <setjmp.h>
 
-#include "rc.h"
+#include "common.h"
 #include "jbwrap.h"
 #include "var.h"
 #include "walk.h"

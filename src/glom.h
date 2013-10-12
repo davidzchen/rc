@@ -1,6 +1,10 @@
 #ifndef SRC_GLOM_H__
 #define SRC_GLOM_H__
 
+#include "redir.h"
+
+extern Rq *redirq;
+
 extern void assign(List *, List *, bool);
 extern void qredir(Node *);
 extern List *append(List *, List*);

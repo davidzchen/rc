@@ -1,6 +1,13 @@
 #ifndef SRC_INPUT_H__
 #define SRC_INPUT_H__
 
+#include "parser.h"
+
+typedef enum inputtype {
+  iFd,
+  iString
+} inputtype;
+
 extern void initinput(void);
 extern Node *parseline(char *);
 extern int gchar(void);

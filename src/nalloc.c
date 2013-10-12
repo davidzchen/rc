@@ -1,15 +1,18 @@
 /* nalloc.c: a simple single-arena allocator for command-line-lifetime allocation */
-#include "rc.h"
+#include "common.h"
 #include "nalloc.h"
 #include "utils.h"
 #include "convert.h"
 #include "fn.h"
 
-static struct Block {
+struct Block {
 	size_t used, size;
 	char *mem;
 	Block *n;
-} *fl, *ul;
+};
+
+static Block *fl;
+static Block *ul;
 
 /* alignto() works only with power of 2 blocks and assumes 2's complement arithmetic */
 #define alignto(m, n)   ((m + n - 1) & ~(n - 1))

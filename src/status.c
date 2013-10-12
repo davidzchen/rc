@@ -1,6 +1,6 @@
 /* status.c: functions for printing fancy status messages in rc */
 
-#include "rc.h"
+#include "common.h"
 #include "sigmsgs.h"
 #include "statval.h"
 #include "status.h"

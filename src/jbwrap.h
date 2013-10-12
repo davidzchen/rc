@@ -21,8 +21,8 @@ so wrap it in a structure.  Potentially, we could use configure to do
 this only where it needs to be done, but the effort is probably not
 worth it. */
 
-struct Jbwrap {
+typedef struct Jbwrap {
 	sigjmp_buf j;
-};
+} Jbwrap;
 
 #endif /* SRC_JBWRAP_H__ */

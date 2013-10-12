@@ -16,9 +16,9 @@
 	more than 1k characters long. 
 */
 
-#include "rc.h"
-
 #include <stdio.h>
+
+#include "common.h"
 
 static const char id[] = "$Release: @(#)" PACKAGE " " VERSION " " RELDATE " $";
 

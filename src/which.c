@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 
-#include "rc.h"
+#include "common.h"
 #include "var.h"
 #include "getgroups.h"
 #include "nalloc.h"

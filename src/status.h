@@ -1,6 +1,8 @@
 #ifndef SRC_STATUS_H__
 #define SRC_STATUS_H__
 
+#include "list.h"
+
 extern int istrue(void);
 extern int getstatus(void);
 extern void set(bool);

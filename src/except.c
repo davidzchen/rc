@@ -1,7 +1,7 @@
 #include <setjmp.h>
 #include <signal.h>
 
-#include "rc.h"
+#include "common.h"
 #include "jbwrap.h"
 #include "nalloc.h"
 #include "hash.h"
@@ -14,6 +14,7 @@
 #include "except.h"
 #include "fn.h"
 #include "var.h"
+#include "glom.h"
 
 /*
    A return goes back stack frames to the last return. A break does

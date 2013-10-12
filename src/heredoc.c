@@ -1,11 +1,12 @@
 /* heredoc.c: heredoc slurping is done here */
 
-#include "rc.h"
+#include "common.h"
 #include "heredoc.h"
 #include "nalloc.h"
 #include "input.h"
 #include "lex.h"
 #include "tree.h"
+#include "redir.h"
 
 struct Hq {
 	Node *doc;

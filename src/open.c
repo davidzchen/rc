@@ -2,7 +2,7 @@
 
 #include <fcntl.h>
 
-#include "rc.h"
+#include "common.h"
 #include "open.h"
 #include "utils.h"
 #include "except.h"

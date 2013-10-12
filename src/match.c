@@ -1,6 +1,6 @@
 /* match.c: pattern matching routines */
 
-#include "rc.h"
+#include "common.h"
 #include "match.h"
 #include "utils.h"
 

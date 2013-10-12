@@ -1,6 +1,8 @@
 #ifndef SRC_EXEC_H__
 #define SRC_EXEC_H__
 
+#include "list.h"
+
 extern void exec(List *, bool);
 
 #if HASH_BANG

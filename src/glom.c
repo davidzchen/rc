@@ -4,12 +4,13 @@
 #include <signal.h>
 #include <errno.h>
 
-#include "rc.h"
+#include "common.h"
 #include "fn.h"
 #include "nalloc.h"
 #include "list.h"
 #include "utils.h"
 #include "signals.h"
+#include "redir.h"
 #include "glom.h"
 #include "hash.h"
 #include "print.h"

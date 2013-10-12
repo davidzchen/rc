@@ -12,7 +12,7 @@
 #include <setjmp.h>
 #include <errno.h>
 
-#include "rc.h"
+#include "common.h"
 #include "builtins.h"
 #include "var.h"
 #include "addon.h"

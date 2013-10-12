@@ -1,6 +1,6 @@
 /* var.c: provide "public" functions for adding and removing variables from the symbol table */
 
-#include "rc.h"
+#include "common.h"
 #include "nalloc.h"
 #include "utils.h"
 #include "list.h"

@@ -5,6 +5,8 @@
 #include <sys/wait.h>
 #endif
 
+#include "list.h"
+
 /* Fake the POSIX wait() macros if we don't have them. */
 #ifndef WIFEXITED
 #define WIFEXITED(s) (((s) & 0xFF) == 0)

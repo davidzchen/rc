@@ -1,6 +1,15 @@
 #ifndef SRC_VAR_H__
 #define SRC_VAR_H__
 
+#include "list.h"
+
+typedef struct Variable {
+  List *def;
+  char *extdef;
+  struct Variable *n;
+} Variable;
+
+
 extern char *varlookup_string(char *);
 extern List *varlookup(char *);
 extern void varassign(char *, List *, bool);

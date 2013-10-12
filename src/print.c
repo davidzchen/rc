@@ -2,7 +2,7 @@
 
 #include <setjmp.h>
 
-#include "rc.h"
+#include "common.h"
 #include "print.h"
 #include "utils.h"
 #include "nalloc.h"

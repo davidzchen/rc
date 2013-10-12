@@ -97,7 +97,7 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 32 "src/parse.y"
+#line 34 "src/parse.y"
 
 	struct Node *node;
 	struct Redir redir;

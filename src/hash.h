@@ -1,6 +1,17 @@
 #ifndef SRC_HASH_H__
 #define SRC_HASH_H__
 
+#include "var.h"
+#include "fn.h"
+
+typedef struct Htab {
+  char *name;
+  void *p;
+} Htab;
+
+#define lookup_fn(s) ((rc_Function *) lookup(s, fp))
+#define lookup_var(s) ((Variable *) lookup(s, vp));
+
 extern Htab *fp, *vp;
 extern void *lookup(char *, Htab *);
 extern rc_Function *get_fn_place(char *);

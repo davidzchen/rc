@@ -1,6 +1,6 @@
 #include <errno.h>
 
-#include "rc.h"
+#include "common.h"
 #include "wait.h"
 #include "nalloc.h"
 #include "signals.h"

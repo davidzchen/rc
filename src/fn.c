@@ -6,7 +6,7 @@
 #include <signal.h>
 #include <errno.h>
 
-#include "rc.h"
+#include "common.h"
 #include "fn.h"
 #include "sigmsgs.h"
 #include "signals.h"
