@@ -11,7 +11,7 @@
 #include "status.h"
 #include "builtins.h"
 #include "open.h"
-#include "fn.h"
+#include "function.h"
 #include "option.h"
 
 bool dashdee;

@@ -3,7 +3,7 @@
 #include <errno.h>
 
 #include "common.h"
-#include "fn.h"
+#include "function.h"
 #include "var.h"
 #include "input.h"
 #include "jbwrap.h"
@@ -291,7 +291,7 @@ extern Node *rc_loop(bool clobberexecit) {
     }
     if (interactive) {
       List *s;
-      if (!dashen && fnlookup("prompt") != NULL) {
+      if (!dashen && function_lookup("prompt") != NULL) {
         static bool died = FALSE;
         static char *arglist[] = { "prompt", NULL };
         if (!died) {

@@ -2,7 +2,7 @@
 #define SRC_HASH_H__
 
 #include "var.h"
-#include "fn.h"
+#include "function.h"
 
 typedef struct Htab {
   char *name;

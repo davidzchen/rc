@@ -9,7 +9,6 @@
 */
 
 #include "common.h"
-#include "fn.h"
 #include "sigmsgs.h"
 #include "hash.h"
 #include "nalloc.h"
@@ -228,7 +227,7 @@ extern void initenv(char **envp) {
 	for (; *envp != NULL; envp++)
 		if (strncmp(*envp, "fn_", conststrlen("fn_")) == 0) {
 			if (!dashpee)
-				fnassign_string(*envp);
+				function_assign_string(*envp);
 		} else {
 			if (!varassign_string(*envp)) /* add to bozo env */
 				env[bozosize++] = *envp;
@@ -303,7 +302,7 @@ extern char **makeenv() {
 	for (i = 0; i < fsize; i++) {
 		if (fp[i].name == NULL || fp[i].name == dead || !fn_exportable(fp[i].name))
 			continue;
-		env[ep++] = fnlookup_string(fp[i].name);
+		env[ep++] = function_lookup_string(fp[i].name);
 	}
 	env[ep] = NULL;
 	qsort(env, (size_t) ep, sizeof(char *), starstrcmp);
@@ -320,7 +319,7 @@ extern void whatare_all_vars(bool showfn, bool showvar) {
 	if (showfn)
 		for (i = 0; i < fsize; i++)
 			if (fp[i].name != NULL && fp[i].name != dead)
-				prettyprint_fn(1, fp[i].name, fnlookup(fp[i].name));
+				function_prettyprint(1, fp[i].name, function_lookup(fp[i].name));
 }
 
 /* fake getenv() for readline() follows: */

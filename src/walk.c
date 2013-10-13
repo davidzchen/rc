@@ -22,7 +22,7 @@
 #include "list.h"
 #include "convert.h"
 #include "redir.h"
-#include "fn.h"
+#include "function.h"
 
 /*
    global which indicates whether rc is executing a test;
@@ -187,8 +187,8 @@ top:	sigchk();
 			rc_error("null function name");
 		while (l != NULL) {
 			if (dashex)
-				prettyprint_fn(2, l->w, n->u[1].p);
-			fnassign(l->w, n->u[1].p);
+				function_prettyprint(2, l->w, n->u[1].p);
+			function_assign(l->w, n->u[1].p);
 			l = l->n;
 		}
 		set(TRUE);
@@ -199,7 +199,7 @@ top:	sigchk();
 		while (l != NULL) {
 			if (dashex)
 				fprint(2, "fn %S\n", l->w);
-			fnrm(l->w);
+			function_remove(l->w);
 			l = l->n;
 		}
 		set(TRUE);

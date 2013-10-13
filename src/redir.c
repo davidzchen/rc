@@ -2,7 +2,7 @@
 // exec.
 
 #include "common.h"
-#include "fn.h"
+#include "function.h"
 #include "redir.h"
 #include "glob.h"
 #include "open.h"

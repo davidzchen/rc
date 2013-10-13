@@ -19,7 +19,7 @@
 #include "utils.h"
 #include "convert.h"
 #include "hash.h"
-#include "fn.h"
+#include "function.h"
 
 #define X_USR 0100
 #define X_GRP 0010

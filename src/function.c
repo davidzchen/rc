@@ -7,7 +7,7 @@
 #include <errno.h>
 
 #include "common.h"
-#include "fn.h"
+#include "function.h"
 #include "sigmsgs.h"
 #include "signals.h"
 #include "hash.h"
@@ -43,19 +43,19 @@ extern void inithandler() {
 		if (i != SIGCLD)
 #endif
 		if (sighandlers[i] == SIG_IGN)
-			fnassign(signals[i].name, NULL); /* ignore incoming ignored signals */
+			function_assign(signals[i].name, NULL); /* ignore incoming ignored signals */
 	if (interactive || sighandlers[SIGINT] != SIG_IGN) {
 		def_sigint = sigint;
-		fnrm("sigint"); /* installs SIGINT catcher if not inherited ignored */
+		function_remove("sigint"); /* installs SIGINT catcher if not inherited ignored */
 	}
 	if (!dashdee) {
 		if (interactive || sighandlers[SIGQUIT] != SIG_IGN) {
 			def_sigquit = dud_handler;
-			fnrm("sigquit"); /* "ignores" SIGQUIT unless inherited ignored */
+			function_remove("sigquit"); /* "ignores" SIGQUIT unless inherited ignored */
 		}
 		if (interactive) {
 			def_sigterm = dud_handler;
-			fnrm("sigterm"); /* ditto for SIGTERM */
+			function_remove("sigterm"); /* ditto for SIGTERM */
 		}
 	}
 }
@@ -86,7 +86,7 @@ extern void setsigdefaults(bool sysvbackground) {
 			case SIGINT:
 				if (sysvbackground) {
 					def_sigint = SIG_IGN;
-					fnassign("sigint", NULL); /* ignore */
+					function_assign("sigint", NULL); /* ignore */
 				} else {
 					def_sigint = SIG_DFL;
 					goto sigcommon;
@@ -95,7 +95,7 @@ extern void setsigdefaults(bool sysvbackground) {
 			case SIGQUIT:
 				if (sysvbackground) {
 					def_sigquit = SIG_IGN;
-					fnassign("sigquit", NULL); /* ignore */
+					function_assign("sigquit", NULL); /* ignore */
 				} else {
 					def_sigquit = SIG_DFL;
 					goto sigcommon;
@@ -154,7 +154,7 @@ static void dud_handler(int ignore) {
    a signal, and set the signal vectors appropriately.
 */
 
-extern void fnassign(char *name, Node *def) {
+extern void function_assign(char *name, Node *def) {
 	Node *newdef = treecpy(def == NULL ? &null : def, ealloc); /* important to do the treecopy first */
 	rc_Function *new = get_fn_place(name);
 	int i;
@@ -181,7 +181,7 @@ extern void fnassign(char *name, Node *def) {
 
 /* Assign a function from the environment. Store just the external representation */
 
-extern void fnassign_string(char *extdef) {
+extern void function_assign_string(char *extdef) {
 	char *name = get_name(extdef+3); /* +3 to skip over "fn_" */
 	rc_Function *new;
 	if (name == NULL)
@@ -193,7 +193,7 @@ extern void fnassign_string(char *extdef) {
 
 /* Return a function in Node form, evaluating an entry from the environment if necessary */
 
-extern Node *fnlookup(char *name) {
+extern Node *function_lookup(char *name) {
 	rc_Function *look = lookup_fn(name);
 	Node *ret;
 	if (look == NULL)
@@ -214,7 +214,7 @@ extern Node *fnlookup(char *name) {
 
 /* Return a function in string form (used by makeenv) */
 
-extern char *fnlookup_string(char *name) {
+extern char *function_lookup_string(char *name) {
 	rc_Function *look = lookup_fn(name);
 
 	if (look == NULL)
@@ -229,7 +229,7 @@ extern char *fnlookup_string(char *name) {
    handler, restore the signal handler to its default value.
 */
 
-extern void fnrm(char *name) {
+extern void function_remove(char *name) {
 	int i;
 	for (i = 1; i < NUMOFSIGNALS; i++)
 		if (streq(signals[i].name, name)) {
@@ -266,6 +266,6 @@ extern void whatare_all_signals() {
 		}
 }
 
-extern void prettyprint_fn(int fd, char *name, Node *n) {
+extern void function_prettyprint(int fd, char *name, Node *n) {
 	fprint(fd, "fn %S {%T}\n", name, n);
 }

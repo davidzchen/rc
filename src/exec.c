@@ -15,7 +15,7 @@
 #include "redir.h"
 #include "status.h"
 #include "except.h"
-#include "fn.h"
+#include "function.h"
 #include "which.h"
 
 /*
@@ -35,7 +35,7 @@ extern void exec(List *s, bool parent) {
 	do {
 		if (*av == NULL	|| isabsolute(*av))
 			b = NULL;
-		else if (!saw_builtin && fnlookup(*av) != NULL)
+		else if (!saw_builtin && function_lookup(*av) != NULL)
 			b = funcall;
 		else
 			b = isbuiltin(*av);

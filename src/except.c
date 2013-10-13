@@ -12,7 +12,7 @@
 #include "walk.h"
 #include "print.h"
 #include "except.h"
-#include "fn.h"
+#include "function.h"
 #include "var.h"
 #include "glom.h"
 

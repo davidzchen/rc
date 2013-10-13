@@ -5,7 +5,7 @@
 #include <errno.h>
 
 #include "common.h"
-#include "fn.h"
+#include "function.h"
 #include "nalloc.h"
 #include "list.h"
 #include "utils.h"

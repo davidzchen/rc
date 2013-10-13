@@ -10,7 +10,7 @@
 #include "walk.h"
 #include "nalloc.h"
 #include "utils.h"
-#include "fn.h"
+#include "function.h"
 
 /* status == the wait() value of the last command in the pipeline, or the last command */
 

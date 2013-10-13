@@ -3,7 +3,7 @@
 #include "nalloc.h"
 #include "utils.h"
 #include "convert.h"
-#include "fn.h"
+#include "function.h"
 
 struct Block {
 	size_t used, size;

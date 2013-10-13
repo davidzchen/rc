@@ -33,7 +33,7 @@
 #include "wait.h"
 #include "input.h"
 #include "open.h"
-#include "fn.h"
+#include "function.h"
 #include "which.h"
 #include "option.h"
 
@@ -105,7 +105,7 @@ extern void funcall(char **av) {
 	star.name = "*";
 	except(eReturn, jreturn, &e1);
 	except(eVarstack, star, &e2);
-	walk(treecpy(fnlookup(*av), nalloc), TRUE);
+	walk(treecpy(function_lookup(*av), nalloc), TRUE);
 	varrm("*", TRUE);
 	unexcept(); /* eVarstack */
 	unexcept(); /* eReturn */
@@ -356,9 +356,10 @@ static void builtin_whatis(char **av) {
 			f = TRUE;
 			prettyprint_var(1, av[i], s);
 		}
-		if (((show(ess)&&issig(av[i])) || show(eff)) && (n = fnlookup(av[i])) != NULL) {
+		if (((show(ess) && issig(av[i])) || show(eff)) && 
+        (n = function_lookup(av[i])) != NULL) {
 			f = TRUE;
-			prettyprint_fn(1, av[i], n);
+			function_prettyprint(1, av[i], n);
 		} else if (show(bee) && isbuiltin(av[i]) != NULL) {
 			f = TRUE;
 			fprint(1, "builtin %s\n", av[i]);
