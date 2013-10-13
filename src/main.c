@@ -75,7 +75,7 @@ int main(int argc, char *argv[], char *envp[]) {
 
   // Unix tradition.
   dashell = (*argv[0] == '-'); 
-  while ((c = rc_getopt(argc, argv, "c:deiIlnopsvx")) != -1)
+  while ((c = rc_getopt(argc, argv, "c:deiIlnopsvx")) != -1) {
     switch (c) {
     case 'c':
       dashsee[0] = rc_optarg;
@@ -117,6 +117,7 @@ int main(int argc, char *argv[], char *envp[]) {
     case '?':
       exit(1);
     }
+  }
 
 quitopts:
   argv += rc_optind;
