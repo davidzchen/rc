@@ -1,7 +1,7 @@
 #ifndef SRC_HASH_H__
 #define SRC_HASH_H__
 
-#include "var.h"
+#include "variable.h"
 #include "function.h"
 
 typedef struct Htab {

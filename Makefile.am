@@ -53,7 +53,7 @@ src_rc_SOURCES = \
 		src/status.c \
 		src/tree.c \
 		src/utils.c \
-		src/var.c \
+		src/variable.c \
 		src/wait.c \
 		src/walk.c \
 		src/which.c

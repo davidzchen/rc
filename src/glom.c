@@ -5,7 +5,6 @@
 #include <errno.h>
 
 #include "common.h"
-#include "function.h"
 #include "nalloc.h"
 #include "list.h"
 #include "utils.h"
@@ -19,7 +18,6 @@
 #include "system.h"
 #include "wait.h"
 #include "status.h"
-#include "var.h"
 
 static List *backq(Node *, Node *);
 static List *bqinput(List *, int);
@@ -169,16 +167,16 @@ extern void assign(List *s1, List *s2, bool stack) {
 	if (strchr(s1->w, '=') != NULL)
 		rc_error("'=' in variable name");
 	if (*s1->w == '*' && s1->w[1] == '\0')
-		val = append(varlookup("0"), s2); /* preserve $0 when * is assigned explicitly */
+		val = append(variable_lookup("0"), s2); /* preserve $0 when * is assigned explicitly */
 	if (s2 != NULL || stack) {
 		if (dashex)
-			prettyprint_var(2, s1->w, val);
-		varassign(s1->w, val, stack);
-		alias(s1->w, varlookup(s1->w), stack);
+			variable_prettyprint(2, s1->w, val);
+		variable_assign(s1->w, val, stack);
+		alias(s1->w, variable_lookup(s1->w), stack);
 	} else {
 		if (dashex)
-			prettyprint_var(2, s1->w, NULL);
-		varrm(s1->w, stack);
+			variable_prettyprint(2, s1->w, NULL);
+		variable_remove(s1->w, stack);
 	}
 }
 
@@ -282,7 +280,7 @@ static List *backq(Node *ifs, Node *n) {
 	close(p[0]);
 	rc_wait4(pid, &sp, TRUE);
 	statprint(-1, sp);
-	varassign("bqstatus", word(strstatus(sp), NULL), FALSE);
+	variable_assign("bqstatus", word(strstatus(sp), NULL), FALSE);
 	sigchk();
 	return bq;
 }
@@ -435,7 +433,7 @@ extern List *glom(Node *n) {
 			rc_error("multi-word variable name");
 		if (*v->w == '\0')
 			rc_error("zero-length variable name");
-		v = (*v->w == '*' && v->w[1] == '\0') ? varlookup(v->w)->n : varlookup(v->w);
+		v = (*v->w == '*' && v->w[1] == '\0') ? variable_lookup(v->w)->n : variable_lookup(v->w);
 		switch (n->type) {
 		default:
 			panic("unexpected node in glom");

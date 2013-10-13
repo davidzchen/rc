@@ -3,8 +3,6 @@
 #include <errno.h>
 
 #include "common.h"
-#include "function.h"
-#include "var.h"
 #include "input.h"
 #include "jbwrap.h"
 #include "nalloc.h"
@@ -283,7 +281,7 @@ extern Node *rc_loop(bool clobberexecit) {
     sigchk();
     if (dashell) {
       char *fname[3];
-      fname[1] = concat(varlookup("home"), word("/.rcrc", NULL))->w;
+      fname[1] = concat(variable_lookup("home"), word("/.rcrc", NULL))->w;
       fname[2] = NULL;
       rcrc = TRUE;
       dashell = FALSE;
@@ -301,7 +299,7 @@ extern Node *rc_loop(bool clobberexecit) {
         died = FALSE;
       }
 
-      if ((s = varlookup("prompt")) != NULL) {
+      if ((s = variable_lookup("prompt")) != NULL) {
 #if EDITLINE || READLINE
         if (istack->t == iFd && isatty(istack->fd)) {
           prompt = s->w;
@@ -353,7 +351,7 @@ static void history() {
   List *hist;
   size_t a;
 
-  if (!interactive || (hist = varlookup("history")) == NULL) {
+  if (!interactive || (hist = variable_lookup("history")) == NULL) {
     return;
   }
 
@@ -370,7 +368,7 @@ static void history() {
       int fd = rc_open(name, rAppend);
       if (fd < 0) {
         uerror(name);
-        varrm(name, TRUE);
+        variable_remove(name, TRUE);
       } else {
         writeall(fd, inbuf + 2, chars_in);
         close(fd);

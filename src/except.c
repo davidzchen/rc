@@ -12,8 +12,6 @@
 #include "walk.h"
 #include "print.h"
 #include "except.h"
-#include "function.h"
-#include "var.h"
 #include "glom.h"
 
 /*
@@ -84,7 +82,7 @@ extern void rc_raise(ecodes e) {
 			default:
 				break;
 			case eVarstack:
-				varrm(estack->data.name, TRUE);
+				variable_remove(estack->data.name, TRUE);
 				break;
 			case eArena:
 				restoreblock(estack->data.b);

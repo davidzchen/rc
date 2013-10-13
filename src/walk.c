@@ -5,7 +5,6 @@
 
 #include "common.h"
 #include "jbwrap.h"
-#include "var.h"
 #include "walk.h"
 #include "signals.h"
 #include "open.h"
@@ -22,7 +21,6 @@
 #include "list.h"
 #include "convert.h"
 #include "redir.h"
-#include "function.h"
 
 /*
    global which indicates whether rc is executing a test;
@@ -77,7 +75,7 @@ top:	sigchk();
 		}
 		if (interactive)
 			fprint(2, "%d\n", pid);
-		varassign("apid", word(nprint("%d", pid), NULL), FALSE);
+		variable_assign("apid", word(nprint("%d", pid), NULL), FALSE);
 		redirq = NULL; /* kill pre-redir queue */
 		break;
 	}
@@ -255,7 +253,7 @@ top:	sigchk();
 				var.name = v->w;
 				except(eVarstack, var, &e);
 				walk(n->u[1].p, parent);
-				varrm(v->w, TRUE);
+				variable_remove(v->w, TRUE);
 				unexcept(); /* eVarstack */
 			}
 		} else

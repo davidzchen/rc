@@ -15,7 +15,6 @@
 #include "list.h"
 #include "tree.h"
 #include "utils.h"
-#include "var.h"
 
 static bool var_exportable(char *);
 static bool fn_exportable(char *);
@@ -229,7 +228,7 @@ extern void initenv(char **envp) {
 			if (!dashpee)
 				function_assign_string(*envp);
 		} else {
-			if (!varassign_string(*envp)) /* add to bozo env */
+			if (!variable_assign_string(*envp)) /* add to bozo env */
 				env[bozosize++] = *envp;
 		}
 }
@@ -295,7 +294,7 @@ extern char **makeenv() {
 	for (i = 0; i < vsize; i++) {
 		if (vp[i].name == NULL || vp[i].name == dead || !var_exportable(vp[i].name))
 			continue;
-		v = varlookup_string(vp[i].name);
+		v = variable_lookup_string(vp[i].name);
 		if (v != NULL)
 			env[ep++] = v;
 	}
@@ -314,8 +313,8 @@ extern void whatare_all_vars(bool showfn, bool showvar) {
 	List *s;
 	if (showvar)
 		for (i = 0; i < vsize; i++)
-			if (vp[i].name != NULL && (s = varlookup(vp[i].name)) != NULL)
-				prettyprint_var(1, vp[i].name, s);
+			if (vp[i].name != NULL && (s = variable_lookup(vp[i].name)) != NULL)
+				variable_prettyprint(1, vp[i].name, s);
 	if (showfn)
 		for (i = 0; i < fsize; i++)
 			if (fp[i].name != NULL && fp[i].name != dead)
@@ -327,7 +326,7 @@ extern void whatare_all_vars(bool showfn, bool showvar) {
 #if EDITLINE || READLINE
 extern char *getenv(const char *name) {
 	List *s;
-	if (name == NULL || vp == NULL || (s = varlookup((char *) name)) == NULL)
+	if (name == NULL || vp == NULL || (s = variable_lookup((char *) name)) == NULL)
 		return NULL;
 	return s->w;
 }

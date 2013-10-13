@@ -14,7 +14,6 @@
 
 #include "common.h"
 #include "builtins.h"
-#include "var.h"
 #include "addon.h"
 #include "jbwrap.h"
 #include "rlimit.h"
@@ -33,7 +32,6 @@
 #include "wait.h"
 #include "input.h"
 #include "open.h"
-#include "function.h"
 #include "which.h"
 #include "option.h"
 
@@ -106,7 +104,7 @@ extern void funcall(char **av) {
 	except(eReturn, jreturn, &e1);
 	except(eVarstack, star, &e2);
 	walk(treecpy(function_lookup(*av), nalloc), TRUE);
-	varrm("*", TRUE);
+	variable_remove("*", TRUE);
 	unexcept(); /* eVarstack */
 	unexcept(); /* eReturn */
 }
@@ -149,7 +147,7 @@ static void builtin_cd(char **av) {
 	char *path = NULL;
 	size_t t, pathlen = 0;
 	if (*++av == NULL) {
-		s = varlookup("home");
+		s = variable_lookup("home");
 		*av = (s == NULL) ? "/" : s->w;
 	} else if (av[1] != NULL) {
 		arg_count("cd");
@@ -162,7 +160,7 @@ static void builtin_cd(char **av) {
 		} else
 			set(TRUE);
 	} else {
-		s = varlookup("cdpath");
+		s = variable_lookup("cdpath");
 		if (s == NULL) {
 			s = &nil;
 			nil.w = "";
@@ -253,8 +251,8 @@ static void builtin_shift(char **av) {
 		badnum(av[1]);
 		return;
 	}
-	s = varlookup("*")->n;
-	dollarzero = varlookup("0");
+	s = variable_lookup("*")->n;
+	dollarzero = variable_lookup("0");
 	while (s != NULL && shift != 0) {
 		s = s->n;
 		--shift;
@@ -263,7 +261,7 @@ static void builtin_shift(char **av) {
 		fprint(2, "cannot shift\n");
 		set(FALSE);
 	} else {
-		varassign("*", append(dollarzero, s), FALSE);
+		variable_assign("*", append(dollarzero, s), FALSE);
 		set(TRUE);
 	}
 }
@@ -352,9 +350,9 @@ static void builtin_whatis(char **av) {
 	for (i = 0; av[i] != NULL; i++) {
 		f = FALSE;
 		errno = ENOENT;
-		if (show(vee) && (s = varlookup(av[i])) != NULL) {
+		if (show(vee) && (s = variable_lookup(av[i])) != NULL) {
 			f = TRUE;
-			prettyprint_var(1, av[i], s);
+			variable_prettyprint(1, av[i], s);
 		}
 		if (((show(ess) && issig(av[i])) || show(eff)) && 
         (n = function_lookup(av[i])) != NULL) {
@@ -430,7 +428,7 @@ extern void builtin_dot(char **av) {
 	star.name = "*";
 	except(eVarstack, star, &e);
 	rc_loop(TRUE);
-	varrm("*", TRUE);
+	variable_remove("*", TRUE);
 	unexcept(); /* eVarstack */
 	interactive = old_i;
 }

@@ -12,14 +12,12 @@
 #include <sys/stat.h>
 
 #include "common.h"
-#include "var.h"
 #include "getgroups.h"
 #include "nalloc.h"
 #include "print.h"
 #include "utils.h"
 #include "convert.h"
 #include "hash.h"
-#include "function.h"
 
 #define X_USR 0100
 #define X_GRP 0010
@@ -113,7 +111,7 @@ extern char *which(char *name, bool verbose) {
 	if (isabsolute(name)) /* absolute pathname? */
 		return rc_access(name, verbose) ? name : NULL;
 	len = strlen(name);
-	for (path = varlookup("path"); path != NULL; path = path->n) {
+	for (path = variable_lookup("path"); path != NULL; path = path->n) {
 		size_t need = strlen(path->w) + len + 2; /* one for null terminator, one for the '/' */
 		if (testlen < need) {
 			efree(test);

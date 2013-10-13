@@ -9,7 +9,7 @@
 #include "wait.h"
 #include "status.h"
 #include "hash.h"
-#include "var.h"
+#include "variable.h"
 
 static void colonassign(char *, List *, bool);
 static void listassign(char *, List *, bool);
@@ -21,7 +21,7 @@ static char *const aliases[] = {
 
 /* assign a variable in List form to a name, stacking if appropriate */
 
-extern void varassign(char *name, List *def, bool stack) {
+extern void variable_assign(char *name, List *def, bool stack) {
 	Variable *new;
 	List *newdef = listcpy(def, ealloc); /* important to do the listcpy first; get_var_place() frees old values */
 	new = get_var_place(name, stack);
@@ -36,7 +36,7 @@ extern void varassign(char *name, List *def, bool stack) {
 
 /* assign a variable in string form. Check to see if it is aliased (e.g., PATH and path) */
 
-extern bool varassign_string(char *extdef) {
+extern bool variable_assign_string(char *extdef) {
 	static bool aliasset[arraysize(aliases)] = {
 		FALSE, FALSE, FALSE, FALSE, FALSE, FALSE
 	};
@@ -56,7 +56,7 @@ extern bool varassign_string(char *extdef) {
 	new->extdef = ealloc(strlen(extdef) + 1);
 	strcpy(new->extdef, extdef);
 	if (i != -1)
-		alias(name, varlookup(name), FALSE);
+		alias(name, variable_lookup(name), FALSE);
 	set_exportable(name, TRUE);
 	return TRUE;
 }
@@ -68,7 +68,7 @@ extern bool varassign_string(char *extdef) {
    associated with $status)
 */
 
-extern List *varlookup(char *name) {
+extern List *variable_lookup(char *name) {
 	Variable *look;
 	List *ret, *l;
 	int sub;
@@ -77,7 +77,7 @@ extern List *varlookup(char *name) {
 	if (streq(name, "status"))
 		return sgetstatus();
 	if (*name != '\0' && (sub = a2u(name)) != -1) { /* handle $1, $2, etc. */
-		for (l = varlookup("*"); l != NULL && sub != 0; --sub)
+		for (l = variable_lookup("*"); l != NULL && sub != 0; --sub)
 			l = l->n;
 		if (l == NULL)
 			return NULL;
@@ -104,7 +104,7 @@ extern List *varlookup(char *name) {
 
 /* lookup a variable in external (string) form, converting if necessary. Used by makeenv() */
 
-extern char *varlookup_string(char *name) {
+extern char *variable_lookup_string(char *name) {
 	Variable *look;
 	look = lookup_var(name);
 	if (look == NULL)
@@ -118,10 +118,10 @@ extern char *varlookup_string(char *name) {
 
 /* remove a variable from the symtab. "stack" determines whether a level of scoping is popped or not */
 
-extern void varrm(char *name, bool stack) {
+extern void variable_remove(char *name, bool stack) {
 	int i = hasalias(name);
 	if (streq(name, "*") && !stack) { /* when assigning () to $*, we want to preserve $0 */
-		varassign("*", varlookup("0"), FALSE);
+		variable_assign("*", variable_lookup("0"), FALSE);
 		return;
 	}
 	delete_var(name, stack);
@@ -137,7 +137,7 @@ extern void starassign(char *dollarzero, char **a, bool stack) {
 	var->w = dollarzero;
 	if (*a == NULL) {
 		var->n = NULL;
-		varassign("*", var, stack);
+		variable_assign("*", var, stack);
 		return;
 	}
 	var->n = s = nnew(List);
@@ -149,7 +149,7 @@ extern void starassign(char *dollarzero, char **a, bool stack) {
 		} else
 			s = s->n = nnew(List);
 	}
-	varassign("*", var, stack);
+	variable_assign("*", var, stack);
 }
 
 /* (ugly name, huh?) assign a colon-separated value to a variable (e.g., PATH) from a List (e.g., path) */
@@ -157,12 +157,12 @@ extern void starassign(char *dollarzero, char **a, bool stack) {
 static void colonassign(char *name, List *def, bool stack) {
 	List dud;
 	if (def == NULL) {
-		varassign(name, NULL, stack);
+		variable_assign(name, NULL, stack);
 		return;
 	}
 	dud.w = nprint("%-L", def, ":");
 	dud.n = NULL;
-	varassign(name, &dud, stack);
+	variable_assign(name, &dud, stack);
 }
 
 /* assign a List variable (e.g., path) from a colon-separated string (e.g., PATH) */
@@ -171,7 +171,7 @@ static void listassign(char *name, List *def, bool stack) {
 	List *val, *r;
 	char *v, *w;
 	if (def == NULL) {
-		varassign(name, NULL, stack);
+		variable_assign(name, NULL, stack);
 		return;
 	}
 	v = def->w;
@@ -185,7 +185,7 @@ static void listassign(char *name, List *def, bool stack) {
 	}
 	r->w = ncpy(v);
 	r->n = NULL;
-	varassign(name, val, stack);
+	variable_assign(name, val, stack);
 }
 
 /* check to see if a particular variable is aliased; return -1 on failure, or the index */
@@ -202,14 +202,14 @@ static int hasalias(char *name) {
 
 extern void alias(char *name, List *s, bool stack) {
 	static void (*vectors[])(char *, List *, bool) = {
-		varassign, varassign, colonassign, listassign, colonassign, listassign
+		variable_assign, variable_assign, colonassign, listassign, colonassign, listassign
 	};
 	int i = hasalias(name);
 	if (i != -1)
 		(*vectors[i])(aliases[i^1], s, stack); /* xor hack to reverse case of alias entry */
 }
 
-extern void prettyprint_var(int fd, char *name, List *s) {
+extern void variable_prettyprint(int fd, char *name, List *s) {
 	int i;
 	static const char * const keywords[] = {
 		"if", "in", "fn", "for", "else", "switch", "while", "case"

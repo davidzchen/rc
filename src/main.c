@@ -2,7 +2,6 @@
 
 #include "common.h"
 #include "print.h"
-#include "var.h"
 #include "hash.h"
 #include "convert.h"
 #include "signals.h"
@@ -11,7 +10,6 @@
 #include "status.h"
 #include "builtins.h"
 #include "open.h"
-#include "function.h"
 #include "option.h"
 
 bool dashdee;
@@ -37,7 +35,7 @@ static void assigndefault(char *name,...) {
   for (l = NULL; (v = va_arg(ap, char *)) != NULL;) {
     l = append(l, word(v, NULL));
   }
-  varassign(name, l, FALSE);
+  variable_assign(name, l, FALSE);
   set_exportable(name, FALSE);
   if (streq(name, "path")) {
     alias(name, l, FALSE);
