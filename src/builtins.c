@@ -98,7 +98,7 @@ extern void funcall(char **av) {
 	Edata jreturn, star;
 	if (sigsetjmp(j.j, 1))
 		return;
-	starassign(*av, av+1, TRUE);
+	variable_star_assign(*av, av+1, TRUE);
 	jreturn.jb = &j;
 	star.name = "*";
 	except(eReturn, jreturn, &e1);
@@ -422,7 +422,7 @@ extern void builtin_dot(char **av) {
 		return;
 	}
 	rcrc = FALSE;
-	starassign(*av, av+1, TRUE);
+	variable_star_assign(*av, av+1, TRUE);
 	pushfd(fd);
 	interactive = i;
 	star.name = "*";

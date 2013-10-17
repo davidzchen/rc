@@ -38,7 +38,7 @@ static void assigndefault(char *name,...) {
   variable_assign(name, l, FALSE);
   set_exportable(name, FALSE);
   if (streq(name, "path")) {
-    alias(name, l, FALSE);
+    variable_alias(name, l, FALSE);
   }
   va_end(ap);
 }
@@ -140,13 +140,13 @@ quitopts:
   initinput();
   null[0] = NULL;
   // Assign $0 to $*.
-  starassign(dollarzero, null, FALSE); 
+  variable_star_assign(dollarzero, null, FALSE); 
   inithandler();
   
   if (dashsee[0] != NULL || dashess != FALSE) {
     // Input from  -c or -s?.
     if (*argv != NULL) {
-      starassign(dollarzero, argv, FALSE);
+      variable_star_assign(dollarzero, argv, FALSE);
     }
     if (dashess != FALSE) {
       pushfd(0);

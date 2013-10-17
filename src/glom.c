@@ -172,7 +172,7 @@ extern void assign(List *s1, List *s2, bool stack) {
 		if (dashex)
 			variable_prettyprint(2, s1->w, val);
 		variable_assign(s1->w, val, stack);
-		alias(s1->w, variable_lookup(s1->w), stack);
+		variable_alias(s1->w, variable_lookup(s1->w), stack);
 	} else {
 		if (dashex)
 			variable_prettyprint(2, s1->w, NULL);
