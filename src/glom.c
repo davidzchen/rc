@@ -65,7 +65,7 @@ extern List *concat(List *s1, List *s2) {
 		return s2;
 	if (s2 == NULL)
 		return s1;
-	if ((n1 = listnel(s1)) != (n2 = listnel(s2)) && n1 != 1 && n2 != 1)
+	if ((n1 = list_count(s1)) != (n2 = list_count(s2)) && n1 != 1 && n2 != 1)
 		rc_error("bad concatenation");
 	for (r = top = nnew(List); 1; r = r->n = nnew(List)) {
 		size_t x = strlen(s1->w);
@@ -101,7 +101,7 @@ extern List *concat(List *s1, List *s2) {
 
 extern List *varsub(List *var, List *subs) {
 	List *r, *top;
-	int n = listnel(var);
+	int n = list_count(var);
 	for (top = r = NULL; subs != NULL; subs = subs->n) {
 		int i = a2u(subs->w);
 		if (i < 1)
@@ -130,7 +130,7 @@ extern List *flatten(List *s) {
 	if (s == NULL || s->n == NULL)
 		return s;
 	r = nnew(List);
-	f = r->w = nalloc(listlen(s) + 1);
+	f = r->w = nalloc(list_length(s) + 1);
 	r->m = NULL; /* flattened lists come from variables, so no meta */
 	r->n = NULL;
 	strcpy(f, s->w);
@@ -148,7 +148,7 @@ extern List *flatten(List *s) {
 
 static List *count(List *l) {
 	List *s = nnew(List);
-	s->w = nprint("%d", listnel(l));
+	s->w = nprint("%d", list_count(l));
 	s->n = NULL;
 	s->m = NULL;
 	return s;

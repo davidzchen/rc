@@ -152,7 +152,7 @@ top:	sigchk();
 			break;
 		jbreak.jb = &j;
 		except(eBreak, jbreak, &e1);
-		for (l = listcpy(glob(glom(n->u[1].p)), nalloc); l != NULL; l = l->n) {
+		for (l = list_copy(glob(glom(n->u[1].p)), nalloc); l != NULL; l = l->n) {
 			Edata block;
 			assign(var, word(l->w, NULL), FALSE);
 			block.b = newblock();

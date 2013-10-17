@@ -7,9 +7,9 @@ typedef struct List {
   struct List *n;
 } List;
 
-extern void listfree(List *);
-extern List *listcpy(List *, void *(*)(size_t));
-extern size_t listlen(List *);
-extern int listnel(List *);
+extern void list_free(List *);
+extern List *list_copy(List *, void *(*)(size_t));
+extern size_t list_length(List *);
+extern int list_count(List *);
 
 #endif /* SRC_LIST_H__ */

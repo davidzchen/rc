@@ -24,7 +24,7 @@ static char *const aliases[] = {
 extern void variable_assign(char *name, List *def, bool stack) {
   Variable *new;
   // Important to do the listcpy first; get_var_place() frees old values.
-  List *newdef = listcpy(def, ealloc); 
+  List *newdef = list_copy(def, ealloc); 
   new = get_var_place(name, stack);
   new->def = newdef;
   new->extdef = NULL;

@@ -159,7 +159,7 @@ extern Variable *get_var_place(char *s, bool stack) {
 		} else {	/* trample the top of the stack */
 			new = vp[h].p;
 			efree(new->extdef);
-			listfree(new->def);
+			list_free(new->def);
 			return new;
 		}
 	}
@@ -189,7 +189,7 @@ extern void delete_var(char *s, bool stack) {
 	env_dirty = TRUE;
 	v = vp[h].p;
 	efree(v->extdef);
-	listfree(v->def);
+	list_free(v->def);
 	if (v->n != NULL) { /* This is the top of a stack */
 		if (stack) { /* pop */
 			vp[h].p = v->n;

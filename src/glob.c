@@ -263,7 +263,7 @@ end:	if (matched == NULL) {
 }
 
 static List *sort(List *s) {
-	size_t nel = listnel(s);
+	size_t nel = list_count(s);
 	if (nel > 1) {
 		char **a;
 		List *t;
