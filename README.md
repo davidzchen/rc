@@ -6,7 +6,7 @@ See COPYING for copying information.  All files are
 
 See INSTALL for build and installation information.
 
-[![Build Status](https://travis-ci.org/davidzchen/libbiospp.png?branch=master)](https://travis-ci.org/davidzchen/libbiospp)
+[![Build Status](https://travis-ci.org/davidzchen/rc.png?branch=master)](https://travis-ci.org/davidzchen/rc)
 
 BUGS
 
