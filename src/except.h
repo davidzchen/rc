@@ -29,6 +29,7 @@ typedef struct Estack {
 } Estack;
 
 extern bool nl_on_intr;
+
 extern bool outstanding_cmdarg(void);
 extern void pop_cmdarg(bool);
 extern void rc_raise(ecodes);
